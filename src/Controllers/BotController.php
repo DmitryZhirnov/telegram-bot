@@ -45,7 +45,7 @@ class BotController
             $bot = new \Longman\TelegramBot\Telegram($token, "DmitryZhirnov");
             $this->logger->info('method = ' . $request->getMethod());
             $message = new Message(json_decode($request->getBody()->getContents(), true));
-            $this->logger->info(var_export($message, true));
+            $this->logger->info($message->getText());
             Request::editMessageText([
                 'text' => 'new text'
             ]);
