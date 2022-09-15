@@ -46,7 +46,8 @@ class BotController
             $requestObj = json_decode($request->getBody()->getContents());
             $message = Request::editMessageText([
                 'message_id' => $requestObj->message->message_id,
-                'text' => 'new text'
+                'text' => 'new text',
+                'chat_id' => $requestObj->message->from->chat->id,
             ]);
             $this->logger->debug(var_export($message, true));
             $bot->handle();
