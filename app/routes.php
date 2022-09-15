@@ -25,5 +25,5 @@ return function (App $app) {
         $group->get('/{id}', ViewUserAction::class);
     });
 
-    $app->get('/bot', \App\Controllers\BotController::class);
+    $app->post('/bot', \App\Controllers\BotController::class);
 };
