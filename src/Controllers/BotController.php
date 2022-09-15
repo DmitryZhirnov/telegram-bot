@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use Longman\TelegramBot\Entities\Message;
+use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -38,8 +40,14 @@ class BotController
         ResponseInterface $response,
         array $args
     ): ResponseInterface {
+        $token = '5697838884:AAHGcz-ajOtBL-txCiac-WGgHdTct-S1I4k';
         try {
-            $this->logger->info($request->getBody()->getContents());
+            $bot = new \Longman\TelegramBot\Telegram($token, "DmitryZhirnov");
+
+            $message = new Message(json_decode($request->getBody()->getContents(), true));
+            $this->logger->info(var_export($message, true));
+            $bot->handle();
+
         } catch (\Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
         }
