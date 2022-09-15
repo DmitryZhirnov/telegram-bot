@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Longman\TelegramBot\Telegram;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -29,7 +30,14 @@ class BotController
         ResponseInterface $response,
         array $args
     ): ResponseInterface {
-        $response->getBody()->write("Hello from bot");
+        $token = '5697838884:AAHGcz-ajOtBL-txCiac-WGgHdTct-S1I4k';
+        try {
+            $bot = new \Longman\TelegramBot\Telegram($token, "DmitryZhirnov");
+            $bot->handle();
+
+        } catch (\Throwable $throwable) {
+            echo $throwable->getMessage();
+        }
         return $response;
     }
 }
