@@ -47,6 +47,7 @@ class BotController
         } catch (\Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
         }
+        $this->logger->info('response = ' .$response->getBody()->getContents());
         return $response;
     }
 }
