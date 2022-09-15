@@ -38,12 +38,8 @@ class BotController
         ResponseInterface $response,
         array $args
     ): ResponseInterface {
-        $token = '5697838884:AAHGcz-ajOtBL-txCiac-WGgHdTct-S1I4k';
         try {
-            $bot = new \Longman\TelegramBot\Telegram($token, "DmitryZhirnov");
             $this->logger->info($request->getBody()->getContents());
-            $bot->handle();
-
         } catch (\Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
         }
