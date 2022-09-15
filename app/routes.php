@@ -16,7 +16,7 @@ return function (App $app) {
     });
 
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world!');
+        $response->getBody()->write('Hello world! Slim');
         return $response;
     });
 
@@ -24,4 +24,6 @@ return function (App $app) {
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
     });
+
+    $app->get('/bot', \App\Controllers\BotController::class);
 };
