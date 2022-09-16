@@ -33,7 +33,7 @@ return function (ContainerBuilder $containerBuilder) {
             $settings = $container->get(SettingsInterface::class);
             $logger->debug(var_export($settings));exit;
             $token = $settings->get('botToken');
-            $telegramBot = new Telegram($token, 'DZhirnovBot');
+            $telegramBot = new Telegram('5697838884:AAHGcz-ajOtBL-txCiac-WGgHdTct-S1I4k', 'DZhirnovBot');
             /** @var LoggerInterface $logger */
             $telegramBot->enableMySql($settings['db'], $telegramBot->getBotUsername() . '_');
             $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
