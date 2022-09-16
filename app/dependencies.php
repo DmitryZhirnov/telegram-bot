@@ -47,7 +47,7 @@ return function (ContainerBuilder $containerBuilder) {
                 $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
                 return $telegramBot;
             } catch (Throwable $throwable) {
-                $logger->debug($throwable->getMessage());
+                $logger->debug($throwable->getMessage().$throwable->getLine());
             }
             return null;
         },
