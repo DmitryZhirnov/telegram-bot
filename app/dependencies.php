@@ -29,19 +29,12 @@ return function (ContainerBuilder $containerBuilder) {
         },
         Telegram::class => function (ContainerInterface $container) {
             $logger = $container->get(LoggerInterface::class);
-            $token = getenv('TELEGRAM_BOT_TOKEN');
-            $logger->debug($token);exit;
+            /** @var SettingsInterface $settings */
+            $settings = $container->get(SettingsInterface::class);
+            $token = $settings->get('botToken');
             $telegramBot = new Telegram($token, 'DZhirnovBot');
             /** @var LoggerInterface $logger */
-            $dbCredentials = [
-                'host'     => $_ENV('DB_HOST'),
-                'port'     => $_ENV('DB_PORT'), // optional
-                'user'     => $_ENV('DB_USER'),
-                'password' => $_ENV('DB_PASSWORD'),
-                'database' => $_ENV('db_name'),
-            ];
-            $logger->debug(var_export($dbCredentials));
-            $telegramBot->enableMySql($dbCredentials, $telegramBot->getBotUsername() . '_');
+            $telegramBot->enableMySql($settings['db'], $telegramBot->getBotUsername() . '_');
             $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
             return $telegramBot;
         }
