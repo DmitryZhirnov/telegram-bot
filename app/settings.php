@@ -21,6 +21,14 @@ return function (ContainerBuilder $containerBuilder) {
                     'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
                     'level' => Logger::DEBUG,
                 ],
+                'db' =>  [
+                    'host'     => $_ENV('DB_HOST'),
+                    'port'     => $_ENV('DB_PORT'), // optional
+                    'user'     => $_ENV('DB_USER'),
+                    'password' => $_ENV('DB_PASSWORD'),
+                    'database' => $_ENV('db_name'),
+                ],
+                'botToken' => $_ENV('TELEGRAM_BOT_TOKEN'),
             ]);
         }
     ]);
