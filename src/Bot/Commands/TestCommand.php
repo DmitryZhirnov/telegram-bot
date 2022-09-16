@@ -4,6 +4,7 @@ namespace App\Bot\Commands;
 
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Request;
+use Longman\TelegramBot\TelegramLog;
 
 class TestCommand extends \Longman\TelegramBot\Commands\Command
 {
@@ -16,8 +17,8 @@ class TestCommand extends \Longman\TelegramBot\Commands\Command
      */
     public function execute(): ServerResponse
     {
-        $data = [];
-        $data['text'] = $this->getMessage()->getText() . ' with test';
-        return Request::sendMessage($data);
+        TelegramLog::debug(__METHOD__);
+        $text = $this->getMessage()->getText() . ' with test';
+        return $this->replyToChat($text);
     }
 }
