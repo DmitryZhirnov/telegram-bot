@@ -31,7 +31,7 @@ return function (ContainerBuilder $containerBuilder) {
             $logger = $container->get(LoggerInterface::class);
             try {
                 $token = $_ENV['TELEGRAM_BOT_TOKEN'];
-                $logger->debug(var_export($_ENV));
+                $logger->debug(getenv('TELEGRAM_BOT_TOKEN'));
                 $telegramBot = new Telegram($token, 'DZhirnovBot');
                 /** @var LoggerInterface $logger */
                 $dbCredentials = [
