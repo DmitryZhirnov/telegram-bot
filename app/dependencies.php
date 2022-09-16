@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
 use DI\ContainerBuilder;
+use Longman\TelegramBot\Telegram;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
@@ -26,5 +27,19 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
+        Telegram::class => function (ContainerInterface $container) {
+            $token = getenv('TELEGRAM_BOT_TOKEN');
+            $telegramBot = new Longman\TelegramBot\Telegram($token, 'DZhirnovBot');
+            $dbCredentials = [
+                'host'     => getenv('DB_HOST'),
+                'port'     => getenv('DB_PORT'), // optional
+                'user'     => getenv('DB_USER'),
+                'password' => getenv('DB_PASSWORD'),
+                'database' => getenv('db_name'),
+            ];
+            $telegramBot->enableMySql($dbCredentials, $telegramBot->getBotUsername() . '_');
+            $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
+            return $telegramBot;
+        }
     ]);
 };
