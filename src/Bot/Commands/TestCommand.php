@@ -8,6 +8,8 @@ use Longman\TelegramBot\Request;
 class TestCommand extends \Longman\TelegramBot\Commands\Command
 {
     protected $name = 'test';
+    protected $usage = '/test';
+
 
     /**
      * @inheritDoc
