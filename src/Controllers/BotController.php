@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Application\Settings\SettingsInterface;
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 use Psr\Container\ContainerInterface;
@@ -23,13 +24,19 @@ class BotController
         $this->container = $container;
         try {
             $this->logger = $this->container->get(LoggerInterface::class);
-            $telegramBot = $this->container->get(Telegram::class);
-            $this->logger->debug(__METHOD__, [var_export($telegramBot)]);
+            /** @var SettingsInterface $settings */
+            $settings = $container->get(SettingsInterface::class);
+            $telegramBot = new Telegram('5697838884:AAHGcz-ajOtBL-txCiac-WGgHdTct-S1I4k', 'DZhirnovBot');
+            if (!empty($settings)) {
+                $telegramBot->enableMySql($settings['db'], $telegramBot->getBotUsername() . '_');
+            }
+            $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
             $this->telegramBot = $telegramBot;
         } catch (\Throwable $e) {
             $this->logger->debug(__METHOD__, [
                 'message' => $e->getMessage(),
-                'line' => $e->getLine()
+                'line' => $e->getLine(),
+                'trace ' => $e->getTraceAsString()
             ]);
         }
     }
