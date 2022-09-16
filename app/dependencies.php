@@ -42,6 +42,7 @@ return function (ContainerBuilder $containerBuilder) {
                     'database' => $_ENV['DB_NAME'],
                 ];
                 $telegramBot->enableMySql($dbCredentials, $telegramBot->getBotUsername() . '_');
+                $telegramBot->enableAdmin(718724807);
                 $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
                 return $telegramBot;
             } catch (Throwable $throwable) {
