@@ -21,6 +21,7 @@ class TestCommand extends \Longman\TelegramBot\Commands\UserCommand
      */
     public function execute(): ServerResponse
     {
+        $this->getMessage();
         return $this->replyToChat('text');
     }
 }

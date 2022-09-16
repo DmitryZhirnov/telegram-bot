@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        LoggerInterface::class => function (ContainerInterface $c) {
+        LoggerInterface::class         => function (ContainerInterface $c) {
             $settings = $c->get(SettingsInterface::class);
 
             $loggerSettings = $settings->get('logger');
@@ -27,7 +27,7 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
-        Telegram::class        => function (ContainerInterface $container) {
+        Telegram::class                => function (ContainerInterface $container) {
             $logger = $container->get(LoggerInterface::class);
             try {
                 $token = $_ENV['TELEGRAM_BOT_TOKEN'];
@@ -46,9 +46,13 @@ return function (ContainerBuilder $containerBuilder) {
                 $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
                 return $telegramBot;
             } catch (Throwable $throwable) {
-                $logger->debug($throwable->getMessage().$throwable->getLine());
+                $logger->debug($throwable->getMessage() . $throwable->getLine());
             }
             return null;
+        },
+        \App\Bot\ServiceManager::class => function (ContainerInterface $container) {
+            $settings = $container->get(SettingsInterface::class);
+            return new \App\Bot\ServiceManager($settings);
         },
     ]);
 };

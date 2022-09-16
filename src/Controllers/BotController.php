@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Bot\ServiceManager;
+use App\Bot\Services\SpamFilter;
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 use Psr\Container\ContainerInterface;
@@ -14,6 +16,7 @@ class BotController
     protected ContainerInterface $container;
     protected LoggerInterface $logger;
     protected Telegram $telegramBot;
+    protected ServiceManager $serviceManager;
 
     /**
      * @param ContainerInterface $container
@@ -24,10 +27,11 @@ class BotController
         try {
             $this->logger = $this->container->get(LoggerInterface::class);
             $this->telegramBot = $this->container->get(Telegram::class);
+            $this->serviceManager = $this->container->get(ServiceManager::class);
         } catch (\Throwable $e) {
             $this->logger->debug(__METHOD__, [
                 'message' => $e->getMessage(),
-                'line' => $e->getLine()
+                'line'    => $e->getLine(),
             ]);
         }
     }
@@ -45,15 +49,10 @@ class BotController
     ): ResponseInterface {
 
         try {
-            $requestObj = json_decode($request->getBody()->getContents());
-            $this->logger->debug('bot:  ' . var_export($this->telegramBot));
-            if ($requestObj->message->text == '12345') {
-                Request::deleteMessage([
-                    'message_id' => $requestObj->message->message_id,
-                    'chat_id'    => $requestObj->message->chat->id,
-                ]);
-            }
-            $this->logger->debug(var_export($requestObj->message, true));
+            $this->serviceManager->addServices([
+                SpamFilter::class,
+            ]);
+            $this->serviceManager->execute($request);
             $this->telegramBot->handle();
         } catch (\Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
