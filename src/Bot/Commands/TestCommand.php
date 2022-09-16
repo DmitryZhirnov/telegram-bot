@@ -21,14 +21,6 @@ class TestCommand extends \Longman\TelegramBot\Commands\UserCommand
      */
     public function execute(): ServerResponse
     {
-        $message = $this->getMessage();            // Get Message object
-        $chat_id = $message->getChat()->getId();   // Get the current Chat ID
-        $data = [                                  // Set up the new message data
-                                                   'chat_id' => $chat_id,
-                                                   // Set Chat ID to send the message to
-                                                   'text'    => 'This is just a Test...',
-                                                   // Set message to send
-        ];
-        return Request::sendMessage($data);        // Send message!
+        return $this->replyToChat('text');
     }
 }
