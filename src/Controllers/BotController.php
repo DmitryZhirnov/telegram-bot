@@ -45,14 +45,14 @@ class BotController
         try {
             $bot = new \Longman\TelegramBot\Telegram($token, "DZhirnovBot");
             $requestObj = json_decode($request->getBody()->getContents());
-            $bot->addCommandClass(TestCommand::class);
+            $bot->addCommandClasses([TestCommand::class]);
             if ($requestObj->message->text == '12345') {
                 $message = Request::deleteMessage([
                     'message_id' => $requestObj->message->message_id,
                     'chat_id'    => $requestObj->message->chat->id,
                 ]);
             }
-            $this->logger->debug(var_export($message, true));
+            $this->logger->debug(var_export($requestObj->message, true));
             $bot->handle();
         } catch (\Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
