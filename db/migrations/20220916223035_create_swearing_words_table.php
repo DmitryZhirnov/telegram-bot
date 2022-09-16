@@ -1,7 +1,5 @@
 <?php
 
-namespace Migration;
-
 use Illuminate\Database\Schema\Blueprint;
 use Phinx\Migration\AbstractMigration;
 use Illuminate\Database\Capsule\Manager as Capsule;
