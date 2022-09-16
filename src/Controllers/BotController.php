@@ -24,19 +24,12 @@ class BotController
         $this->container = $container;
         try {
             $this->logger = $this->container->get(LoggerInterface::class);
-            /** @var SettingsInterface $settings */
-            $settings = $container->get(SettingsInterface::class);
-            $telegramBot = new Telegram('5697838884:AAHGcz-ajOtBL-txCiac-WGgHdTct-S1I4k', 'DZhirnovBot');
-            if (!empty($settings)) {
-                $telegramBot->enableMySql($settings['db'], $telegramBot->getBotUsername() . '_');
-            }
-            $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
-            $this->telegramBot = $telegramBot;
+
         } catch (\Throwable $e) {
             $this->logger->debug(__METHOD__, [
                 'message' => $e->getMessage(),
-                'line' => $e->getLine(),
-                'trace ' => $e->getTraceAsString()
+                'line'    => $e->getLine(),
+                'trace '  => $e->getTraceAsString(),
             ]);
         }
     }
@@ -49,11 +42,27 @@ class BotController
      */
     public function __invoke(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        array $args
-    ): ResponseInterface {
+        ResponseInterface      $response,
+        array                  $args
+    ): ResponseInterface
+    {
 
         try {
+            /** @var SettingsInterface $settings */
+            $telegramBot = new Telegram('5697838884:AAHGcz-ajOtBL-txCiac-WGgHdTct-S1I4k', 'DZhirnovBot');
+
+            $telegramBot->enableMySql([
+                'host'     => $_ENV('DB_HOST'),
+                'port'     => $_ENV('DB_PORT'),
+                // optional
+                'user'     => $_ENV('DB_USER'),
+                'password' => $_ENV('DB_PASSWORD'),
+                'database' => $_ENV('db_name'),
+            ], $telegramBot->getBotUsername() . '_');
+
+            $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
+            $this->telegramBot = $telegramBot;
+
             $requestObj = json_decode($request->getBody()->getContents());
             $this->logger->debug('bot:  ' . var_export($this->telegramBot));
             if ($requestObj->message->text == '12345') {
