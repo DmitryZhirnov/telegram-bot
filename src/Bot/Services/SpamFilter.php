@@ -20,7 +20,7 @@ class SpamFilter implements ServiceInterface
         if (str_contains('мудак', $text)) {
             Request::deleteMessage(
                 [
-                    'message_id' => $request->message->id,
+                    'message_id' => $request->message->message_id,
                     'chat_id'    => $request->message->chat->id,
                 ]
             );
