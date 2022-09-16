@@ -46,7 +46,7 @@ class BotController
             $bot = new \Longman\TelegramBot\Telegram($token, "DZhirnovBot");
             $requestObj = json_decode($request->getBody()->getContents());
             $bot->addCommandClass(TestCommand::class);
-            if ($requestObj->text == '12345') {
+            if ($requestObj->message->text == '12345') {
                 $message = Request::deleteMessage([
                     'message_id' => $requestObj->message->message_id,
                     'chat_id'    => $requestObj->message->chat->id,
