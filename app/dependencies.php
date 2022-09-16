@@ -27,17 +27,5 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
-        Telegram::class => function (ContainerInterface $container) {
-            $logger = $container->get(LoggerInterface::class);
-            /** @var SettingsInterface $settings */
-            $settings = $container->get(SettingsInterface::class);
-            $logger->debug(var_export($settings));exit;
-            $token = $settings->get('botToken');
-            $telegramBot = new Telegram('5697838884:AAHGcz-ajOtBL-txCiac-WGgHdTct-S1I4k', 'DZhirnovBot');
-            /** @var LoggerInterface $logger */
-            $telegramBot->enableMySql($settings['db'], $telegramBot->getBotUsername() . '_');
-            $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
-            return $telegramBot;
-        }
     ]);
 };
