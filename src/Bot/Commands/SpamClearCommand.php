@@ -8,6 +8,10 @@ use Longman\TelegramBot\Request;
 
 class SpamClearCommand extends UserCommand
 {
+    protected $name = 'clear';
+    protected $usage = '';
+    protected $version = '1.0.0';
+    protected $description = 'A command for test';
 
     public function execute(): ServerResponse
     {
