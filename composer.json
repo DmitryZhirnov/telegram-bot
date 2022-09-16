@@ -24,6 +24,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
+        "illuminate/database": "^8.83",
         "longman/telegram-bot": "^0.79.0",
         "monolog/monolog": "^2.8",
         "php-di/php-di": "^6.4",
@@ -49,7 +50,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Migration\\": "./db/migrations/"
         }
     },
     "autoload-dev": {
