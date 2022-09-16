@@ -30,17 +30,17 @@ return function (ContainerBuilder $containerBuilder) {
         Telegram::class        => function (ContainerInterface $container) {
             $logger = $container->get(LoggerInterface::class);
             try {
-                $token = $_ENV('TELEGRAM_BOT_TOKEN');
+                $token = $_ENV['TELEGRAM_BOT_TOKEN'];
                 $logger->debug($token);
                 $telegramBot = new Telegram($token, 'DZhirnovBot');
                 /** @var LoggerInterface $logger */
                 $dbCredentials = [
-                    'host'     => $_ENV('DB_HOST'),
-                    'port'     => $_ENV('DB_PORT'),
+                    'host'     => $_ENV['DB_HOST'],
+                    'port'     => $_ENV['DB_PORT'],
                     // optional
-                    'user'     => $_ENV('DB_USER'),
-                    'password' => $_ENV('DB_PASSWORD'),
-                    'database' => $_ENV('db_name'),
+                    'user'     => $_ENV['DB_USER'],
+                    'password' => $_ENV['DB_PASSWORD'],
+                    'database' => $_ENV['db_name'],
                 ];
                 $logger->debug(var_export($dbCredentials));
                 $telegramBot->enableMySql($dbCredentials, $telegramBot->getBotUsername() . '_');
