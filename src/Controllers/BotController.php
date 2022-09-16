@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Bot\Commands\SpamClearCommand;
 use App\Bot\Commands\TestCommand;
 use Longman\TelegramBot\Entities\Message;
 use Longman\TelegramBot\Request;
@@ -17,6 +18,7 @@ class BotController
 {
     protected ContainerInterface $container;
     protected LoggerInterface $logger;
+    protected Telegram $telegramBot;
 
     /**
      * @param ContainerInterface $container
@@ -26,6 +28,7 @@ class BotController
         $this->container = $container;
         try {
             $this->logger = $this->container->get(LoggerInterface::class);
+            $this->telegramBot = $this->container->get(Telegram::class);
         } catch (\Throwable $e) {
         }
     }
@@ -41,11 +44,9 @@ class BotController
         ResponseInterface $response,
         array $args
     ): ResponseInterface {
-        $token = '5697838884:AAHGcz-ajOtBL-txCiac-WGgHdTct-S1I4k';
+
         try {
-            $bot = new \Longman\TelegramBot\Telegram($token, "DZhirnovBot");
             $requestObj = json_decode($request->getBody()->getContents());
-            $bot->addCommandClasses([TestCommand::class]);
             if ($requestObj->message->text == '12345') {
                 $message = Request::deleteMessage([
                     'message_id' => $requestObj->message->message_id,
@@ -53,7 +54,7 @@ class BotController
                 ]);
             }
             $this->logger->debug(var_export($requestObj->message, true));
-            $bot->handle();
+            $this->telegramBot->handle();
         } catch (\Throwable $throwable) {
             $this->logger->error($throwable->getMessage());
         }
