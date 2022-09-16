@@ -31,6 +31,7 @@ return function (ContainerBuilder $containerBuilder) {
             $logger = $container->get(LoggerInterface::class);
             /** @var SettingsInterface $settings */
             $settings = $container->get(SettingsInterface::class);
+            $logger->debug(var_export($settings));exit;
             $token = $settings->get('botToken');
             $telegramBot = new Telegram($token, 'DZhirnovBot');
             /** @var LoggerInterface $logger */
