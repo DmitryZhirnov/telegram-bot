@@ -2,14 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Bot\Commands\SpamClearCommand;
-use App\Bot\Commands\TestCommand;
-use Longman\TelegramBot\Entities\Message;
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
-use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
@@ -47,8 +42,9 @@ class BotController
 
         try {
             $requestObj = json_decode($request->getBody()->getContents());
+            $this->logger->debug('bot:  ' . var_export($this->telegramBot));
             if ($requestObj->message->text == '12345') {
-                $message = Request::deleteMessage([
+                Request::deleteMessage([
                     'message_id' => $requestObj->message->message_id,
                     'chat_id'    => $requestObj->message->chat->id,
                 ]);
