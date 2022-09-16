@@ -29,7 +29,7 @@ return function (ContainerBuilder $containerBuilder) {
         },
         Telegram::class => function (ContainerInterface $container) {
             $token = getenv('TELEGRAM_BOT_TOKEN');
-            $telegramBot = new Longman\TelegramBot\Telegram($token, 'DZhirnovBot');
+            $telegramBot = new Telegram($token, 'DZhirnovBot');
             $dbCredentials = [
                 'host'     => getenv('DB_HOST'),
                 'port'     => getenv('DB_PORT'), // optional
