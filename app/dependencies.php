@@ -52,7 +52,8 @@ return function (ContainerBuilder $containerBuilder) {
         },
         \App\Bot\ServiceManager::class => function (ContainerInterface $container) {
             $settings = $container->get(SettingsInterface::class);
-            return new \App\Bot\ServiceManager($settings);
+            $logger = $container->get(LoggerInterface::class);
+            return new \App\Bot\ServiceManager($settings, $logger);
         },
     ]);
 };
