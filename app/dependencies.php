@@ -28,10 +28,11 @@ return function (ContainerBuilder $containerBuilder) {
             return $logger;
         },
         Telegram::class => function (ContainerInterface $container) {
+            $logger = $container->get(LoggerInterface::class);
             $token = getenv('TELEGRAM_BOT_TOKEN');
+            $logger->debug($token);
             $telegramBot = new Telegram($token, 'DZhirnovBot');
             /** @var LoggerInterface $logger */
-            $logger = $container->get(LoggerInterface::class);
             $dbCredentials = [
                 'host'     => getenv('DB_HOST'),
                 'port'     => getenv('DB_PORT'), // optional
