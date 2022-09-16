@@ -23,8 +23,7 @@ class BotController
         $this->container = $container;
         try {
             $this->logger = $this->container->get(LoggerInterface::class);
-            $telegramBot = $this->container->get(Telegram::class);
-            $this->logger->debug(__METHOD__, [var_export($telegramBot)]);
+            $this->telegramBot = $this->container->get(Telegram::class);
         } catch (\Throwable $e) {
             $this->logger->debug(__METHOD__, [
                 'message' => $e->getMessage(),
