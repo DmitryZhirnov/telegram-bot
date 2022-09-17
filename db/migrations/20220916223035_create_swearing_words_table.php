@@ -1,16 +1,15 @@
 <?php
 
-namespace Migration;
 
 use Illuminate\Database\Schema\Blueprint;
 use Phinx\Migration\AbstractMigration;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-final class CreateSwearingWordsTable extends AbstractMigration
+class CreateSwearingWordsTable extends AbstractMigration
 {
     public function up(): void
     {
-        Capsule::table('swearing_words', function (Blueprint $table) {
+        Capsule::schema()->create('swearing_words', function (Blueprint $table) {
             $table->id();
             $table->string('word');
         });
@@ -20,4 +19,5 @@ final class CreateSwearingWordsTable extends AbstractMigration
     {
         $this->table('swearing_words')->drop();
     }
+
 }

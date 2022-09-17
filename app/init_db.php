@@ -2,18 +2,24 @@
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 $capsule = new Capsule();
-$capsule->addConnection([
+$credentials = [
     'driver'    => 'mysql',
-    'host'     => $_ENV['DB_HOST'],
-    'port'     => $_ENV['DB_PORT'],
+    'host'      => env('DB_HOST'),
+    'port'      => env('DB_PORT'),
     // optional
-    'user'     => $_ENV['DB_USER'],
-    'password' => $_ENV['DB_PASSWORD'],
-    'database' => $_ENV['DB_NAME'],
+    'user'      => env('DB_USER'),
+    'username'  => env('DB_USER'),
+    'password'  => env('DB_PASSWORD'),
+    'database'  => env('DB_NAME'),
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
-]);
+];
+var_export($credentials);
+$capsule->addConnection($credentials);
 //Make this Capsule instance available globally.
 $capsule->setAsGlobal();
 // Setup the Eloquent ORM.

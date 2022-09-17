@@ -3,20 +3,18 @@
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../app/init_db.php';
 
-use Illuminate\Database\Capsule\Manager as Capsule;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 $connection = Capsule::connection();
 
 return [
     'paths'        => [
         'migrations' => [
-            __DIR__ . '/' . '../db/migrations/',
+            __DIR__ . DIRECTORY_SEPARATOR . 'migrations',
         ],
         'seeds'      => [
-            __DIR__ . '/' . '../db/seeds/',
+            __DIR__ . DIRECTORY_SEPARATOR . 'seeds',
         ],
     ],
     'environments' => [
