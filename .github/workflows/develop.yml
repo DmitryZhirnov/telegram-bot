@@ -7,6 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: pull
-        run: ../git pull origin develop
+        run: cd .. && git pull origin develop
       - name: migrations
         run: php8 migrate -c db/phinx.php
