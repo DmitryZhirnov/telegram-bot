@@ -1,9 +1,0 @@
-name: Deploy develop
-on:
-  push:
-    branches: [ develop ]
-jobs:
-  build:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v3
