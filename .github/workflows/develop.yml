@@ -1,11 +1,10 @@
 name: Deploy develop
 
 on: [push, pull_request]
-branches:
-  - '*'
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
     steps:
       - name: pull
         run: git pull origin develop
