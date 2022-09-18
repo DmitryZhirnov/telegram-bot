@@ -39,13 +39,6 @@ $repositories($containerBuilder);
 // Build PHP-DI Container instance
 $container = $containerBuilder->build();
 
-// Add connection to models
-/** @var Capsule $db */
-$capsule = require __DIR__ . '/../app/init_db.php';
-$container['db'] = function () use ($capsule) {
-    return $capsule;
-};
-
 // Instantiate the app
 AppFactory::setContainer($container);
 $app = AppFactory::create();

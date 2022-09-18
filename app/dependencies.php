@@ -29,18 +29,11 @@ return function (ContainerBuilder $containerBuilder) {
         },
         Telegram::class                => function (ContainerInterface $container) {
             $logger = $container->get(LoggerInterface::class);
+            $settings = $container->get(SettingsInterface::class);
             try {
                 $token = $_ENV['TELEGRAM_BOT_TOKEN'];
                 $telegramBot = new Telegram($token, 'DZhirnovBot');
-                /** @var LoggerInterface $logger */
-                $dbCredentials = [
-                    'host'     => $_ENV['DB_HOST'],
-                    'port'     => $_ENV['DB_PORT'],
-                    // optional
-                    'user'     => $_ENV['DB_USER'],
-                    'password' => $_ENV['DB_PASSWORD'],
-                    'database' => $_ENV['DB_NAME'],
-                ];
+                $dbCredentials = $settings->get('db');
                 $telegramBot->enableMySql($dbCredentials, $telegramBot->getBotUsername() . '_');
                 $telegramBot->enableAdmin(718724807);
                 $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
@@ -54,6 +47,14 @@ return function (ContainerBuilder $containerBuilder) {
             $settings = $container->get(SettingsInterface::class);
             $logger = $container->get(LoggerInterface::class);
             return new \App\Bot\ServiceManager($settings, $logger);
+        },
+        'db' => function (ContainerInterface $container) {
+            $settings = $container->get(SettingsInterface::class);
+            $capsule = new Illuminate\Database\Capsule\Manager();
+            $capsule->addConnection($settings->get('db'));
+            $capsule->setAsGlobal();
+            $capsule->bootEloquent();
+            return $capsule;
         },
     ]);
 };

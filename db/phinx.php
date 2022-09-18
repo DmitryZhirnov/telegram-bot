@@ -1,12 +1,18 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../app/init_db.php';
 
-
-use Illuminate\Database\Capsule\Manager as Capsule;
-
-$connection = Capsule::connection();
+// Instantiate PHP-DI ContainerBuilder
+$containerBuilder = new \DI\ContainerBuilder();
+// Set up settings
+$settings = require __DIR__ . '/../app/settings.php';
+$settings($containerBuilder);
+// Set up dependencies
+$dependencies = require __DIR__ . '/../app/dependencies.php';
+$dependencies($containerBuilder);
+$container = $containerBuilder->build();
+$capsule = $container->get('db');
+$connection = $capsule->getConnection();
 
 return [
     'paths'        => [
