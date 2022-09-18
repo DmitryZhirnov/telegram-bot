@@ -23,8 +23,7 @@ class SpamFilter implements ServiceInterface
         $swearingWordExists = false;
         foreach ($swearingWords as $swearingWord) {
             $swearingWordExists = Str::contains($swearingWord, $text);
-            if ($swearingWordExists)
-            {
+            if ($swearingWordExists) {
                 break;
             }
         }
