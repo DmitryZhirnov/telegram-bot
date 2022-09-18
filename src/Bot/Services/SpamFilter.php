@@ -19,6 +19,7 @@ class SpamFilter implements ServiceInterface
         $request = json_decode($this->request->getBody()->getContents(), false);
         $text = Str::lower($request->message->text);
         $this->logger->debug(__METHOD__, [json_encode($request->message, JSON_UNESCAPED_UNICODE)]);
+        $this->logger->info(SwearingWord::query()->where('word', 'LIKE', "%{$text}%")->toSql());
         if (SwearingWord::query()->firstWhere('word', 'LIKE', "%{$text}%")->exists()) {
             $this->logger->info(__METHOD__, ['Удаляю сообщение содержащее матершину']);
             Request::deleteMessage(
