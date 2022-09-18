@@ -1,12 +1,10 @@
 name: Deploy develop
-
-on: [push, pull_request]
-
+on:
+  push:
+    branches: [ develop ]
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: pull
-        run: cd .. && git pull origin develop
-      - name: migrations
-        run: php8 migrate -c db/phinx.php
+      - uses: actions/checkout@v3
+      - run: pwd
