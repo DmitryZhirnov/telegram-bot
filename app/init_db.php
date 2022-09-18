@@ -18,9 +18,9 @@ $credentials = [
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
 ];
-var_export($credentials);
 $capsule->addConnection($credentials);
 //Make this Capsule instance available globally.
 $capsule->setAsGlobal();
 // Setup the Eloquent ORM.
 $capsule->bootEloquent();
+return $capsule;
