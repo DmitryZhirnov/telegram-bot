@@ -26,4 +26,10 @@ return function (App $app) {
     });
 
     $app->post('/bot', \App\Controllers\BotController::class);
+
+    $app->get('/bot/{word}', function (Request $request, Response $response)
+    {
+        $word = \App\Domain\SwearingWord\SwearingWord::on('mysql')->get();
+        echo var_export($word->toArray());
+    });
 };

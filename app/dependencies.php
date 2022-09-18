@@ -51,7 +51,7 @@ return function (ContainerBuilder $containerBuilder) {
         'db' => function (ContainerInterface $container) {
             $settings = $container->get(SettingsInterface::class);
             $capsule = new Illuminate\Database\Capsule\Manager();
-            $capsule->addConnection($settings->get('db'));
+            $capsule->addConnection($settings->get('db'), 'mysql');
             $capsule->setAsGlobal();
             $capsule->bootEloquent();
             return $capsule;

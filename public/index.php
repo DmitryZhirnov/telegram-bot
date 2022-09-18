@@ -38,6 +38,7 @@ $repositories($containerBuilder);
 
 // Build PHP-DI Container instance
 $container = $containerBuilder->build();
+$container->get('db');
 
 // Instantiate the app
 AppFactory::setContainer($container);
