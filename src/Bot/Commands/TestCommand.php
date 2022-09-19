@@ -28,7 +28,7 @@ class TestCommand extends \Longman\TelegramBot\Commands\UserCommand
         $text .= "<s>перечеркнутый</s> <del> перечеркнутый </del>";
         $text .= "<a href='https://dzhirnov.ru' target='_blank'>home</a>";
 
-        return Request::sendMessage(['chat_id'    => -1001735253957,
+        return Request::sendMessage(['chat_id'    => -1001553767868,
                                      'message_id' => $message->getMessageId(),
                                      'text'       => $text,
                                      'parse_mode' => "html",
