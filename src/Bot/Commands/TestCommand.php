@@ -21,7 +21,16 @@ class TestCommand extends \Longman\TelegramBot\Commands\UserCommand
      */
     public function execute(): ServerResponse
     {
-        $this->getMessage();
-        return $this->replyToChat('text');
+        $message = $this->getMessage();
+        $text = "<b>жирный</b>, <strong>жирный</strong>\n\n";
+        $text .= "<i>курсив</i>, <em>курсив</em>\n\n";
+        $text .= "<u>подчеркнутый</u>, <ins> подчеркнутый </ins>\n\n";
+        $text .= "<s>перечеркнутый</s>, <strike> перечеркнутый </strike>, <del> перечеркнутый </del>";
+
+        return Request::sendMessage(['chat_id'    => $message->getChat()->getId(),
+                                     'message_id' => $message->getMessageId(),
+                                     'text'       => $text,
+                                     'parse_mode' => "html",
+        ]);
     }
 }
