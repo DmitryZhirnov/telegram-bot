@@ -25,10 +25,10 @@ class TestCommand extends \Longman\TelegramBot\Commands\UserCommand
         $text = "<b>жирный</b>, <strong>жирный</strong>\n\n";
         $text .= "<i>курсив</i>, <em>курсив</em>\n\n";
         $text .= "<u>подчеркнутый</u>, <ins> подчеркнутый </ins>\n\n";
-        $text .= "<s>перечеркнутый</s>, <strike> перечеркнутый </strike>, <del> перечеркнутый </del>";
+        $text .= "<s>перечеркнутый</s> <del> перечеркнутый </del>";
         $text .= "<a href='https://dzhirnov.ru' target='_blank'>home</a>";
 
-        return Request::sendMessage(['chat_id'    => $message->getChat()->getId(),
+        return Request::sendMessage(['chat_id'    => -1001735253957,
                                      'message_id' => $message->getMessageId(),
                                      'text'       => $text,
                                      'parse_mode' => "html",
