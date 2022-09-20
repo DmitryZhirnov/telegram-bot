@@ -7,7 +7,7 @@ use Longman\TelegramBot\Request;
 use Longman\TelegramBot\TelegramLog;
 use Psr\Log\LoggerAwareTrait;
 
-class TestCommand extends \Longman\TelegramBot\Commands\UserCommand
+class TestCommand extends \Longman\TelegramBot\Commands\AdminCommand
 {
     use LoggerAwareTrait;
 
