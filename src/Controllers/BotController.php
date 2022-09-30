@@ -24,8 +24,8 @@ class BotController
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->logger = $this->container->get(LoggerInterface::class);
         try {
-            $this->logger = $this->container->get(LoggerInterface::class);
             $this->telegramBot = $this->container->get(Telegram::class);
             $this->serviceManager = $this->container->get(ServiceManager::class);
         } catch (\Throwable $e) {
@@ -44,14 +44,16 @@ class BotController
      */
     public function __invoke(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        array $args
-    ): ResponseInterface {
+        ResponseInterface      $response,
+        array                  $args
+    ): ResponseInterface
+    {
 
         try {
             $this->serviceManager->addServices([
                 SpamFilter::class,
             ]);
+            $this->logger->debug($request->getBody()->getContents());
             $this->serviceManager->execute($request);
             $this->telegramBot->handle();
         } catch (\Throwable $throwable) {

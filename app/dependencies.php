@@ -34,8 +34,8 @@ return function (ContainerBuilder $containerBuilder) {
                 $token = $_ENV['TELEGRAM_BOT_TOKEN'];
                 $telegramBot = new Telegram($token, 'DZhirnovBot');
                 $dbCredentials = $settings->get('db');
-                $telegramBot->enableMySql($dbCredentials, $telegramBot->getBotUsername() . '_');
-                $telegramBot->enableAdmin(718724807);
+                $telegramBot->enableMySql($dbCredentials);
+                $telegramBot->enableAdmins([718724807, 507810493]);
                 $telegramBot->addCommandsPath(__DIR__ . '/../src/Bot/Commands');
                 return $telegramBot;
             } catch (Throwable $throwable) {
