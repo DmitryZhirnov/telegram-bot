@@ -11,5 +11,5 @@ interface ServiceInterface
     public function handle();
     public function setRequest(ServerRequestInterface $request);
     public function setLogger(LoggerInterface $logger);
-    public function getMessage(): Message;
+    public function getMessage(): ?Message;
 }

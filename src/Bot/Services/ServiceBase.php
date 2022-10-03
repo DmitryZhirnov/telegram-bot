@@ -20,9 +20,10 @@ abstract class ServiceBase implements ServiceInterface
         $this->request = $request;
     }
 
-    public function getMessage(): Message
+    public function getMessage(): ?Message
     {
         $request = json_decode($this->request->getBody()->getContents(), true);
-        return new Message($request['message']);
+
+        return empty($request['message']) ? null : new Message($request['message']);
     }
 }

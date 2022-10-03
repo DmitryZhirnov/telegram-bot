@@ -18,6 +18,9 @@ class SpamFilter extends ServiceBase
     {
         $this->logger->debug(__METHOD__);
         $message = $this->getMessage();
+        if (empty($message)) {
+            return;
+        }
 
         $text = Str::lower($message->getText());
         if (empty($text)) {
