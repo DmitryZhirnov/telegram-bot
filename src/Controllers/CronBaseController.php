@@ -2,9 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Bot\ServiceManager;
-use App\Bot\Services\SpamFilter;
-use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -13,12 +10,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 
-class BotController
+class CronBaseController
 {
     protected ContainerInterface $container;
     protected LoggerInterface $logger;
     protected Telegram $telegramBot;
-    protected ServiceManager $serviceManager;
+    protected string $commandClass;
 
     /**
      * @param ContainerInterface $container
@@ -31,7 +28,6 @@ class BotController
         $this->logger = $this->container->get(LoggerInterface::class);
         try {
             $this->telegramBot = $this->container->get(Telegram::class);
-            $this->serviceManager = $this->container->get(ServiceManager::class);
         } catch (\Throwable $e) {
             $this->logger->debug(__METHOD__, [
                 'message' => $e->getMessage(),
@@ -39,7 +35,6 @@ class BotController
             ]);
         }
     }
-
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
@@ -51,18 +46,25 @@ class BotController
         ResponseInterface $response,
         array $args
     ): ResponseInterface {
-
         try {
-            $this->serviceManager->addServices([
-                SpamFilter::class,
+            $this->logger->debug($this->commandClass);
+            $command = new $this->commandClass($this->telegramBot, null);
+            $command->execute();
+        } catch (\Throwable $e) {
+            $this->logger->debug(__METHOD__, [
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
             ]);
-            $this->logger->debug($request->getBody()->getContents());
-            $this->serviceManager->execute($request);
-            $this->telegramBot->handle();
-        } catch (\Throwable $throwable) {
-            $this->logger->error($throwable->getMessage());
         }
-        $this->logger->info('response = ' . $response->getBody()->getContents());
+
         return $response;
+    }
+
+    /**
+     * @param string $commandClass
+     */
+    public function setCommandClass(string $commandClass): void
+    {
+        $this->commandClass = $commandClass;
     }
 }

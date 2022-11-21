@@ -21,11 +21,10 @@ class StewardCommand extends AdminCommand
      */
     public function execute(): ServerResponse
     {
-        $message = $this->getMessage();
         $text = file_get_contents(__DIR__ . "/../../../data/html/{$this->name}.html");
         return Request::sendPhoto([
-            'chat_id'    => -1001553767868,
-            'message_id' => $message->getMessageId(),
+//            'chat_id'    => -1001553767868, // мой чат
+            'chat_id'    => -1001351585233, //опсб орел
             'caption'    => $text,
             'photo'      => __DIR__ . '/../../../public/images/steward.png',
             'parse_mode' => "html",

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
-use App\Domain\SwearingWord\SwearingWord;
-use Illuminate\Support\Str;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -28,20 +26,7 @@ return function (App $app) {
     });
 
     $app->post('/bot', \App\Controllers\BotController::class);
-
-    $app->get('/bot/{word}', function (Request $request, Response $response) {
-        $swearingWords = [
-            'хуй',
-            'пизда',
-        ];
-        $text = 'хуйq';
-        foreach ($swearingWords as $swearingWord) {
-            $swearingWordExists = Str::contains($text, $swearingWord);
-            if ($swearingWordExists) {
-                break;
-            }
-        }
-        echo $swearingWordExists ? 'true' : 'false';
-        return $response;
-    });
+    $app->get('/cron/steward', \App\Controllers\CronStewardController::class);
+    $app->get('/cron/info', \App\Controllers\CronInfoController::class);
+    $app->get('/cron/tail', \App\Controllers\CronTailController::class);
 };
