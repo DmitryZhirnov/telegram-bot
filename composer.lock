@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3271de8060ea554a28d123b7158cc5e",
+    "content-hash": "040a0a7f0b2fab170c8f5f19fd3f384c",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -276,16 +276,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.4.1",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379"
+                "reference": "67c26b443f348a51926030c83481b85718457d3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/69568e4293f4fa993f3b0e51c9723e1e17c41379",
-                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/67c26b443f348a51926030c83481b85718457d3d",
+                "reference": "67c26b443f348a51926030c83481b85718457d3d",
                 "shasum": ""
             },
             "require": {
@@ -375,7 +375,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.4.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.4.3"
             },
             "funding": [
                 {
@@ -391,7 +391,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-28T14:45:39+00:00"
+            "time": "2022-10-26T14:07:24+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -455,16 +455,16 @@
         },
         {
             "name": "longman/telegram-bot",
-            "version": "0.79.0",
+            "version": "0.80.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-telegram-bot/core.git",
-                "reference": "097177ca85627bfa5d0d9e679714a0b1353d49de"
+                "reference": "94d770215c5c758bf2faba3ad96ad528d9d5a3d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-telegram-bot/core/zipball/097177ca85627bfa5d0d9e679714a0b1353d49de",
-                "reference": "097177ca85627bfa5d0d9e679714a0b1353d49de",
+                "url": "https://api.github.com/repos/php-telegram-bot/core/zipball/94d770215c5c758bf2faba3ad96ad528d9d5a3d8",
+                "reference": "94d770215c5c758bf2faba3ad96ad528d9d5a3d8",
                 "shasum": ""
             },
             "require": {
@@ -552,7 +552,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-04T13:22:41+00:00"
+            "time": "2022-11-09T19:09:30+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3943,5 +3943,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
